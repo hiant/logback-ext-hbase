@@ -1,0 +1,23 @@
+<configuration debug="true">
+
+    <appender name="HBase" class="io.github.hiant.HBaseAppender">
+        <configuration class="io.github.hiant.SimpleConfigurationFactory">
+            <quorum>172.22.0.28</quorum>
+            <port>2181</port>
+        </configuration>
+    </appender>
+
+    <appender name="debugout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%5p]%d{HH:mm:ss.SSS}[%t][%logger{32}] -- %m%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.apache.zookeeper.ClientCnxn" level="ERROR" />
+    <logger name="io.github.hiant" level="TRACE">
+        <appender-ref ref="HBase"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="debugout"/>
+    </root>
+</configuration>
